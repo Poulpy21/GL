@@ -1,1 +1,2 @@
-git clone git+ssh://git@github.com/Poulpy21/GL troll
+Pour push et pull le git avec une paire de clef ssh, cloner avec la commande :
+git clone git+ssh://git@github.com/Poulpy21/GL dossier
