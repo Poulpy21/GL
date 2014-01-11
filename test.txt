@@ -1,9 +1,8 @@
-
 === Cloner avec une paire de clef ===
 Pour push et pull le git avec une paire de clef ssh, cloner avec la commande :
 git clone git+ssh://git@github.com/Poulpy21/GL dossier
 
 
 === Equation spécial romain :p ===
-exp(​(‑(((x-​4)^​2+​(y-​4)^​2)^​2))/​999)+​exp(​(‑(((x+​4)^​2+​(y+​4)^​2)^​2))/​999)+​0.1*​exp(​‑(((x+​4)^​2+​(y+​4)^​2)^​2))+​0.1*​exp(​‑(((x-​4)^​2+​(y-​4)^​2)^​2))
+exp((-(((x-4)^2+(y-4)^2)^2))/1000)+exp((-(((x+4)^2+(y+4)^2)^2))/1000)+0.15*exp(-(((x+4)^2+(y+4)^2)^2))+0.15*exp(-(((x-4)^2+(y-4)^2)^2))
 a entrer en intégralité sur google
