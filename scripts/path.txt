@@ -1,0 +1,4 @@
+export PATH=$HOME/Documents/GL/src/main/bin:$PATH
+export PATH=$HOME/Documents/GL/global/bin/ima:$PATH
+export PATH=$HOME/Documents/GL/src/test/script/launchers:$PATH
+export PATH=$HOME/Documents/GL/src/test/script:$PATH
