@@ -1,6 +1,7 @@
 #define pi 3.14159265358979323846
 #include <stdio.h>
 
+//Epsilon machine atteint à 24 cycles.
 
 struct vect{
 	float cos;
@@ -87,8 +88,8 @@ struct vect coordic(float beta, int n){
 int main(){
 	float angle;
 	scanf("%f", &angle);
-	struct vect v = coordic(angle,50);
-	printf("cos(%lf) = %x \nsin(%lf) = %x\n\n", angle, v.cos, angle, v.sin);
+	struct vect v = coordic(angle,23);
+	printf("cos(%lf) = %lf \nsin(%lf) = %lf\n\n", angle, v.cos, angle, v.sin);
 	return 0;
 	
 }
