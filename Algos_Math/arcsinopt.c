@@ -1,6 +1,8 @@
 #include <stdio.h>
-//Fonction compatible java! =)
+#include <stdlib.h>
+#include "sqrt.c"
 
+//Juste pour importer l'atan à la zob.
 float PI_4 = 0.78539816339744830675;
 float PI_2 = 1.5707963267948966135;
  
@@ -47,15 +49,24 @@ float arctansmabouboule(float x) {
 		return atan_positive(x);
 }
 
+float arcsin(float x){
+	if (x<-1 || x>1){
+		printf("Valeur incorrecte pour arcsin. Aborting.\n");
+		exit(1);
+	}
+	return 2*arctansmabouboule((1-(Q_rsqrt(1-x*x)))/x);
+}
+
 int main(){
 	float angle;
 	scanf("%f", &angle);
-	printf("atan(%f) = %f \n",angle,arctansmabouboule(angle));
-
-/*	//Pour le calcul de performances. 1.000.000 artan en 23 ms.
-	for (float j=-500000; j<500000; j++){
-		arctansmabouboule(j/100);
-	}*/
-	return 0;
+	printf("asin(%f) = %f \n",angle,arcsin(angle));
 	
+	/*int i =0;
+	for (float j = -1; j<1; j+=0.00001){
+		arcsin(j);
+		i++; //Bugué, étrangement.
+	}
+	printf("%d\n",i);*/
+	return 0;
 }
