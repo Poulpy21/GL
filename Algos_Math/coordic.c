@@ -55,7 +55,6 @@ struct vect coordic(float beta, int n){
 	float factor;
 	
 	for (int j = 0; j<n; j++){
-		printf("Debug:%lf\n",beta);
 		if (beta<0){
 			sigma = -1;
 		} else {
@@ -88,8 +87,14 @@ struct vect coordic(float beta, int n){
 int main(){
 	float angle;
 	scanf("%f", &angle);
-	struct vect v = coordic(angle,23);
+	struct vect v = coordic(angle,24);
 	printf("cos(%lf) = %lf \nsin(%lf) = %lf\n\n", angle, v.cos, angle, v.sin);
+/*
+	//Pour le test de performances. 10.000 cos&sin en 4ms.
+	struct vect v;
+	for(float j = -5000; j<5000; j++){
+		v = coordic(j/100,24);
+	}*/
 	return 0;
 	
 }
