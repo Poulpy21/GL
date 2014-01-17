@@ -1,3 +1,4 @@
+//#include <stdio.h>
 float Q_rsqrt( float number )
 {
 	long i;
@@ -14,14 +15,15 @@ float Q_rsqrt( float number )
  
 	return 1/y;
 }
+
 #if 0
 int main(){
-	/*float num;
+	float num;
 	scanf("%f", &num);
-	printf("sqrt(%f) = %f \n",num,Q_rsqrt(num));*/
-	for (float j = -500000; j<500000; j++){
+	printf("sqrt(%f) = %f \n",num,Q_rsqrt(num));
+	/*for (float j = -500000; j<500000; j++){
 		Q_rsqrt(j);
 	}
-	return 0;
+	return 0;*/
 }
 #endif
