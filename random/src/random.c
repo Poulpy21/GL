@@ -1,10 +1,12 @@
 #include <stdlib.h>
-#include <time.h>
 #include <assert.h>
+#include <sys/time.h>
 
 void rand_init(void) {
-
-	srand(time(NULL));
+	/*srand(time(NULL));*/
+	struct timeval *tv = (struct timeval*) malloc(sizeof(struct timeval));
+	gettimeofday(tv, NULL);
+	srand(tv->tv_usec);
 }
 
 int rand_int(int a, int b) {
