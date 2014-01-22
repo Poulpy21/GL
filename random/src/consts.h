@@ -2,6 +2,9 @@
 
 #include <assert.h>
 
+#define MAX_THREADS 8
+#define PROGRAMM_PER_THREAD 10000
+
 #define MAX_PROGRAMM_SIZE 10000
 #define FILE_PER_PASS 1
 
