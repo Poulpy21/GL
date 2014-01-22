@@ -6,6 +6,7 @@
 #include <dirent.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/time.h>
 
 #include "random.h"
 #include "utils.h"
@@ -26,11 +27,13 @@ int main( int argc, const char* argv[] )
 	unsigned int nThread;
 
 	for (nThread = MAX_THREADS; nThread > 0; nThread--) {
-		if ((pid = fork()) != 0)
+		if ((pid = fork()) == 0)
 			break;
 
-		child_pids[nThread] = pid;
+		child_pids[nThread-1] = pid;
 	}
+
+	/*printf("Hello, I'm thread %i and my pid is %i and my childs are %i, %i, %i, ... !\n", nThread, pid, child_pids[0], child_pids[1], child_pids[2]);*/
 
 
 	/*-- CHILDS --*/
@@ -72,37 +75,50 @@ int main( int argc, const char* argv[] )
 	else { 
 		printf("Launched %i threads, generating %i files each !\n", MAX_THREADS, PROGRAMM_PER_THREAD);
 
+		/*struct timeval *tv = (struct timeval *) malloc(sizeof(struct timeval));*/
+		struct timeval tv1, tv2;
+
+		gettimeofday(&tv1, NULL);
+
 		int status;
-		bool finished;
+		wait(&status);
 
-		do {
-			finished = true;
-			for (unsigned int i = 0; (i < MAX_THREADS) && finished; i++) {
-				waitpid(child_pids[i], &status, WNOHANG);
-				finished = finished && (status != 0);
-				if(status == -1) {
-					printf("\nError when waiting childs to terminate !\n");
-					return EXIT_FAILURE;
-				}
-			}
-			
+		gettimeofday(&tv2, NULL);
+		
+		unsigned long int t1 = 1000*tv1.tv_sec + tv1.tv_usec/1000;
+		unsigned long int t2 = 1000*tv2.tv_sec + tv2.tv_usec/1000;
+		unsigned long int dt = t2 - t1;
+	
+		printf("Done in %lu ms !\n", dt);
+		
+		printf("Compiling in parallel ...\n");
 
-		} while(!finished);
+		gettimeofday(&tv1, NULL);
 
-		printf("FINISHED !\n");
+		printf("decac -P -n deca/*.deca\n");
+		system("decac -P -n deca/*.deca > /dev/null 2>&1");
+
+		gettimeofday(&tv2, NULL);
+		
+		t1 = 1000*tv1.tv_sec + tv1.tv_usec/1000;
+		t2 = 1000*tv2.tv_sec + tv2.tv_usec/1000;
+		dt = t2 - t1;
+		
+		printf("Done in %lu ms !\n", dt);
 		
 
-		/*DIR *dir;*/
-		/*struct dirent *ent;*/
+		DIR *dir;
+		struct dirent *ent;
 
-		/*dir = opendir("deca");*/
+		dir = opendir("deca");
 
-		/*if (dir == NULL) {*/
-			/*printf("\nImpossible d'ouvrir le dossier deca !\n");*/
-			/*return EXIT_FAILURE;*/
-		/*}*/
+		if (dir == NULL) {
+			printf("\nImpossible d'ouvrir le dossier deca !\n");
+			return EXIT_FAILURE;
+		}
 
 	}
+
 
 	free(child_pids);
 	return EXIT_SUCCESS;
