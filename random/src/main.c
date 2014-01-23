@@ -35,7 +35,6 @@ int main( int argc, const char* argv[] )
 
 	/*printf("Hello, I'm thread %i and my pid is %i and my childs are %i, %i, %i, ... !\n", nThread, pid, child_pids[0], child_pids[1], child_pids[2]);*/
 
-
 	/*-- CHILDS --*/
 	if(nThread != 0) {
 		rand_init();
@@ -70,7 +69,7 @@ int main( int argc, const char* argv[] )
 		free(programmPath);
 		free(errorLine);
 	} 
-	
+
 	/*-- MAIN --*/
 	else { 
 		printf("Launched %i threads, generating %i files each !\n", MAX_THREADS, PROGRAMM_PER_THREAD);
@@ -84,41 +83,59 @@ int main( int argc, const char* argv[] )
 		wait(&status);
 
 		gettimeofday(&tv2, NULL);
-		
+
 		unsigned long int t1 = 1000*tv1.tv_sec + tv1.tv_usec/1000;
 		unsigned long int t2 = 1000*tv2.tv_sec + tv2.tv_usec/1000;
 		unsigned long int dt = t2 - t1;
-	
+
 		printf("Done in %lu ms !\n", dt);
-		
+
 		printf("Compiling in parallel ...\n");
 
 		gettimeofday(&tv1, NULL);
 
 		printf("decac -P -n deca/*.deca\n");
-		system("decac -P -n deca/*.deca > /dev/null 2>&1");
+		system("decac -P deca/*.deca > /dev/null");
 
 		gettimeofday(&tv2, NULL);
-		
+
 		t1 = 1000*tv1.tv_sec + tv1.tv_usec/1000;
 		t2 = 1000*tv2.tv_sec + tv2.tv_usec/1000;
 		dt = t2 - t1;
-		
+
 		printf("Done in %lu ms !\n", dt);
-		
+
+		printf("Looking for *.ass !");
 
 		DIR *dir;
 		struct dirent *ent;
+		char filename[256];
+		char cmd[256];
 
-		dir = opendir("deca");
+		chdir("deca");
+		dir = opendir(".");
 
 		if (dir == NULL) {
 			printf("\nImpossible d'ouvrir le dossier deca !\n");
 			return EXIT_FAILURE;
 		}
 
-	}
+		while((ent = readdir(dir)) != NULL) {
+			if(ent->d_type == DT_REG && (strstr(ent->d_name, ".ass") != NULL)) {
+				strncpy(filename, ent->d_name, strlen(ent->d_name) - 3);
+				filename[strlen(ent->d_name) - 4] = '\0';
+				strcat(filename, ".deca");
+				printf("\nFound %s !", filename);
+				sprintf( cmd, "/bin/cp -p \'%s\' \'../valid\' > /dev/null", filename);
+				system(cmd);
+			}
+			/*remove(ent->d_name);*/
+		}
 
+		closedir(dir);
+
+
+	}
 
 	free(child_pids);
 	return EXIT_SUCCESS;
