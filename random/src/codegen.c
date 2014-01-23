@@ -30,11 +30,11 @@ liste_string *special_list ;
 char *newProgramm() {
 
 	/*initialization*/
-	types_list = create_liste_string(types, 5, 5, RAND_CHAR_STRING);
-	var_names_list = create_liste_string(var_names, 4, 4, RAND_CHAR_STRING);
-	values_list = create_liste_string(var_names_list, values, 6, 6, RAND_ALL);
-	func_list = create_liste_string(funcs, 5, 5, RAND_CHAR_STRING);
-	control_struct_list = create_liste_string(control_struct, 4, 4, RAND_CHAR_STRING);
+	types_list = create_liste_string(types, 5, 2, RAND_CHAR_STRING);
+	var_names_list = create_liste_string(var_names, 4, 2, RAND_CHAR_STRING);
+	values_list = create_liste_string(var_names_list, values, 6, 2, RAND_ALL);
+	func_list = create_liste_string(funcs, 5, 2, RAND_CHAR_STRING);
+	control_struct_list = create_liste_string(control_struct, 4, 2, RAND_CHAR_STRING);
 	special_list = create_liste_string(special, 6, 0, RAND_NONE);
 
 	liste_string *listes_string[] = {types_list, values_list, var_names_list, func_list, control_struct_list, special_list };

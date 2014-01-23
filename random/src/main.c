@@ -103,34 +103,55 @@ int main( int argc, const char* argv[] )
 		t2 = 1000*tv2.tv_sec + tv2.tv_usec/1000;
 		dt = t2 - t1;
 
-		printf("Done in %lu ms !\n", dt);
+		printf("\nDone in %lu ms !\n", dt);
 
-		printf("Looking for *.ass !");
+		printf("Looking for *.ass !\n");
 
 		DIR *dir;
 		struct dirent *ent;
+		unsigned int counter = 0;
 		char filename[256];
-		char cmd[256];
+		char dst[256];
 
-		chdir("deca");
+		if (chdir("deca")) {
+			printf("\nImpossible d'ouvrir le dossier deca !");
+		}
+
 		dir = opendir(".");
 
 		if (dir == NULL) {
 			printf("\nImpossible d'ouvrir le dossier deca !\n");
 			return EXIT_FAILURE;
 		}
-
+	
+		/*On cherche les *.ass*/
 		while((ent = readdir(dir)) != NULL) {
 			if(ent->d_type == DT_REG && (strstr(ent->d_name, ".ass") != NULL)) {
-				strncpy(filename, ent->d_name, strlen(ent->d_name) - 3);
+				printf("Found %s !\n", ent->d_name);
+				strncpy(filename, ent->d_name, strlen(ent->d_name) - 4);
 				filename[strlen(ent->d_name) - 4] = '\0';
 				strcat(filename, ".deca");
-				printf("\nFound %s !", filename);
-				sprintf( cmd, "/bin/cp -p \'%s\' \'../valid\' > /dev/null", filename);
-				system(cmd);
+				sprintf(dst, "../valid/%s", filename);
+				if (cp(dst,filename) != 0)
+					printf("ERROR during copy from %s to %s!\n", filename, dst);
+
+				counter++;
 			}
-			/*remove(ent->d_name);*/
 		}
+		
+		printf("Found %i successfully compiled files !\n", counter);
+		printf("Deleting all sources files ...\n");
+
+		rewinddir(dir);
+		
+		/*On supprime tout*/
+		while((ent = readdir(dir)) != NULL) {
+			if(ent->d_type == DT_REG) {
+				remove(ent->d_name);
+			}
+		}
+		
+		printf("Done.\n");
 
 		closedir(dir);
 

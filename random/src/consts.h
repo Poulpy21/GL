@@ -29,6 +29,6 @@
 #define MAX_DEPTH 1
 
 #define P_DOUBLE_VAR_DEF 0.3
-#define P_INITIALIZE_VAR 0.5
+#define P_INITIALIZE_VAR 1.0 
 
 void verify_consts();
