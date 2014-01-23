@@ -56,7 +56,7 @@ char *newProgramm() {
 	/*free memory*/
 	for (i = 0; i <6; i++) {
 		/*for (j = 0; j < listes_string[i]->size; j++) {*/
-		/*free((listes_string[i]->liste)[j]);*/
+			/*free((listes_string[i]->liste)[j]);*/
 		/*}*/
 		free(listes_string[i]);
 	}

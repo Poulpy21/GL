@@ -1,6 +1,6 @@
 
 
-### LIBRAIRIES EXTERIEURES ###
+### LIBRAIRIES EXTERNES ###
 OPENCV_INCLUDEPATH = -I/usr/local/include
 OPENCV_LIBPATH = -L/usr/lib
 OPENCV_LIBS = -lopencv_core -lopencv_imgproc -lopencv_highgui
@@ -115,8 +115,13 @@ $(OBJDIR)%.o: $(SRCDIR)%.cu
 .PHONY: clean cleanall
 
 clean:
-	-@rm -rf $(OBJDIR)*.o
+	rm -f $(OBJDIR)*.o
 
-cleanall: clean
-	-@rm -f $(TARGET) $(TARGET).out 
+cleanall:
+	rm -Rf $(OBJDIR)
+	rm -Rf deca
+	rm -Rf valid
+	mkdir obj
+	mkdir deca
+	mkdir valid
 
