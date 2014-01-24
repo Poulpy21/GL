@@ -37,3 +37,5 @@ char *generate_random(random_type bitfield);
 
 liste_string* create_liste_string(const char *initial_liste[], const size_t size, const size_t complete, unsigned int rand_type);
 liste_string* create_liste_string(liste_string *include_list, const char *initial_liste[], const size_t size, const size_t complete, unsigned int rand_type);
+
+int cp(const char *to, const char *from);

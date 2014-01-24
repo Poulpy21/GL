@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #define MAX_THREADS 8
-#define PROGRAMM_PER_THREAD 100
+#define PROGRAMM_PER_THREAD 10000 
 
 #define MAX_PROGRAMM_SIZE 10000
 #define FILE_PER_PASS 1
@@ -29,6 +29,6 @@
 #define MAX_DEPTH 1
 
 #define P_DOUBLE_VAR_DEF 0.3
-#define P_INITIALIZE_VAR 0.5
+#define P_INITIALIZE_VAR 1.0 
 
 void verify_consts();
